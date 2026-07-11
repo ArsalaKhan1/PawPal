@@ -64,3 +64,22 @@ ul{
     display: inline-block;
     text-align: left;
 }
+@media (max-width:600px){
+    h1{
+        font-size:30px;
+    }
+    nav{
+        flex-direction:row;
+        gap:15px;
+    }
+    nav a{
+        font-size: 20px;
+        padding: 5px;
+    }
+    form{
+        width:90%;
+    }
+    button{
+        width:100%;
+    }
+}
