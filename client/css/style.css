@@ -73,7 +73,7 @@ ul{
         gap:15px;
     }
     nav a{
-        font-size: 20px;
+        font-size: 14px;
         padding: 5px;
     }
     form{
@@ -82,4 +82,14 @@ ul{
     button{
         width:100%;
     }
+}
+.featured{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    color: black;
+    background-color: rgb(251, 234, 135);
+    margin: 20px;
+    padding: 12px;
 }
