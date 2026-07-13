@@ -59,6 +59,7 @@ button{
     padding: 10px 20px;
     font-size: 18px;
     cursor: pointer;
+    border-radius: 5px;
 }
 ul{
     display: inline-block;
@@ -92,4 +93,12 @@ ul{
     background-color: rgb(251, 234, 135);
     margin: 20px;
     padding: 12px;
+}
+.petCard{
+    border:1px solid;
+    padding:15px;
+    margin:20px auto;
+    width:300px;
+    border-radius:8px;
+    background:rgb(255, 248, 174);
 }
