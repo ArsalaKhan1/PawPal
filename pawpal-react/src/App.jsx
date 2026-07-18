@@ -1,0 +1,58 @@
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from './assets/vite.svg'
+import heroImg from './assets/hero.png'
+import './App.css'
+
+function App() {
+  const [count, setCount] = useState(0)
+
+  return (
+    <>
+    <body>
+        <header>
+            <h1>PawPal</h1>
+            <nav>
+                <a href = "#">Home</a> 
+                <a href = "#">Login</a> 
+                <a href = "#">Register</a> 
+                <a href = "#">About</a>
+                <a href = "#">Add Pet</a>
+            </nav>
+        </header>
+
+        <main>
+            <section>
+                <h2>Welcome to PawPal - The community for your pets!</h2>
+                <p>
+                    PawPal is the ultimate destination for all pet lovers - designed to 
+                    help them keep track of their pets' health, feeding schedules, vaccination timelines, and more.
+                </p>
+            </section>
+
+            <section className = "featureCard">
+                <h2>Features</h2>
+                <ul>
+                    <li>Manage multiple pets</li>
+                    <li>Track vaccinations</li>
+                    <li>Record medical history</li>
+                    <li>Daily care reminders</li>
+                </ul>
+            </section>
+                    <section>
+                <h2>Featured pet profile!</h2>
+                <div className = "petCard" id = "petInfo"></div>
+            </section>
+
+            <section>
+                <h2>Get started right away!</h2>
+                <p><a href = "register.html">Create an account on PawPal</a> to take the first step in managing your pets' care!</p>
+            </section>
+        </main>
+        <footer>2026 PawPal. All rights reserved.</footer>
+    </body>
+  </>
+  );
+}
+
+export default App

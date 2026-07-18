@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PawPal</title>
     <link rel = "stylesheet" href = "css/style.css">
-    <script src = "js/script.js" defer ></script>
+    <script src = "js/featuredPet.js" defer ></script>
 </head>
 <body>
     <header>
@@ -15,6 +15,7 @@
             <a href = "login.html">Login</a> 
             <a href = "register.html">Register</a> 
             <a href = "about.html">About</a>
+            <a href = "newPet.html">Add Pet</a>
         </nav>
     </header>
 
@@ -27,12 +28,7 @@
             </p>
         </section>
 
-        <section>
-            <h3>Featured pet profile!</h3>
-            <div class = "featured" id = "petInfo"></div>
-        </section>
-
-        <section>
+        <section class = "featureCard">
             <h2>Features</h2>
             <ul>
                 <li>Manage multiple pets</li>
@@ -41,6 +37,11 @@
                 <li>Daily care reminders</li>
             </ul>
         </section>
+                <section>
+            <h2>Featured pet profile!</h2>
+            <div class = "petCard" id = "petInfo"></div>
+        </section>
+
         <section>
             <h2>Get started right away!</h2>
             <p><a href = "register.html">Create an account on PawPal</a> to take the first step in managing your pets' care!</p>
