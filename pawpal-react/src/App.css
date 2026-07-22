@@ -22,6 +22,8 @@ nav{
     display: flex;
     justify-content: center;
     gap: 40px;
+    background-color: #5acdf7;
+    padding: 20px;
 }
 nav a{
     text-decoration: none;
@@ -43,13 +45,13 @@ form{
     margin: auto;
     width: 350px;
     padding: 20px;
-    font-size: 18px;
+    font-size: 15px;
 }
 input{
     width: 90%;
-    padding: 7px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 button{
@@ -104,7 +106,7 @@ ul{
 }
 
 .featureCard{
-    color:rgb(3, 50, 119);
+    color:rgb(255, 248, 174);
     border: 1px solid;
     padding: 15px;
     margin: 20px auto;
@@ -112,4 +114,9 @@ ul{
     border-radius: 10px;
     background: rgb(15, 215, 250);
     justify-content: center;
+}
+.hero{
+    color: rgb(13, 178, 207);
+    padding: 15px;
+    margin: 20px auto;
 }
