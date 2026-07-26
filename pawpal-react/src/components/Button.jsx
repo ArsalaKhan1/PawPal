@@ -1,6 +1,9 @@
-function Button(){
-    return(
-        <button>Click Me</button>
+function Button({children}) {
+    return (
+        <button className = "simpleButton" >
+            {children}
+        </button>
     );
 }
+
 export default Button;

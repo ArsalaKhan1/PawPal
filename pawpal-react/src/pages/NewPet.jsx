@@ -1,5 +1,8 @@
 import {useState} from "react";
+import Navbar from "../components/Navbar";
 import PetCard from "../components/PetCard";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 function NewPet(){
     const [pets, setPets] = useState([]); /*pets are stored here, initially empty*/
@@ -21,41 +24,42 @@ function NewPet(){
     setAge("");
 }
 
-return (
+return (<>
+    <Navbar />
     <main>
-        <h2>Register a new pet!</h2>
-        <form onSubmit={addPet}>
-            <label>Name</label>
-            <input 
-                type="text"
-                value = {name}
-                onChange = {(e) => setName(e.target.value)}
+        <form className = "petForm" onSubmit={addPet}>
+            <h2>Register a new pet!</h2>
+            <Input
+                    label="Name"
+                    type="text"
+                    value = {name}
+                    onChange = {(e) => setName(e.target.value)}
+                    required
             />
-            <br /><br />
-            <label>Animal</label>
-            <input 
-                type = "text"
-                value = {animal}
-                onChange = {(e) => setAnimal(e.target.value)}
+            <Input
+                    label="Animal"
+                    type="text"
+                    value = {animal}
+                    onChange = {(e) => setAnimal(e.target.value)}
+                    required
             />
-            <br /><br />
-            <label>Breed</label>
-            <input
-                type = "text"
-                value = {breed}
-                onChange = {(e) => setBreed(e.target.value) }
+            <Input
+                    label="Breed"
+                    type="text"
+                    value = {breed}
+                    onChange = {(e) => setBreed(e.target.value) }
+                    required
             />
-            <br /><br />
-            <label>Age</label>
-            <input
+            <Input
+                label = "Age"
                 type = "text"
                 value = {age}
                 onChange = { (e) => setAge(e.target.value)}
+                required
             />
-            <br /><br />
-            <button type = "submmit">
+            <Button type = "submit">
                 Add Pet
-            </button>
+            </Button>
 
         </form>
         <hr />
@@ -68,6 +72,7 @@ return (
                 age = {pet.age}/>
         ))}
     </main>
+    </>
 );
 }
 

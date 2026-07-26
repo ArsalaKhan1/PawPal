@@ -1,7 +1,7 @@
 function Footer(){
     return(
         <footer>
-            <p>2023 PawPal. All rights reserved.</p>
+            <p>2026 PawPal. All rights reserved.</p>
         </footer>
     );
 }

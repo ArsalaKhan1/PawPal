@@ -1,26 +1,31 @@
+import {Route, Routes} from "react-router-dom";
+
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import FeatureCard from "./components/FeatureCard";
 import Footer from "./components/Footer";
-import PetCard from "./components/PetCard";
-import NewPet from "./pages/NewPet";
-import './App.css'
+import './App.css';
 
+import Home from "./pages/Home.jsx";
+import Dashboard from "./pages/Dashboard.jsx";
+import NewPet from "./pages/NewPet.jsx";
+import Health from "./pages/Health.jsx";
+import Register from "./pages/Register.jsx";
+import Login from "./pages/Login.jsx";
+import Profile from "./pages/Profile.jsx";
+import About from "./pages/About.jsx";
 function App() {
   return(
     <>
-        <Navbar />
-        <Hero />
-        <FeatureCard />
-        <h2>Meet some of our featured pets!</h2>
-        <PetCard 
-            name = "Balloo"
-            animal = "Cat"
-            breed = "Persian"
-            age = {5}
-        />
-        <NewPet />
-        <Footer />
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/NewPet" element={<NewPet />} /> 
+            <Route path="/Health" element={<Health />} />
+            <Route path="/Register" element={<Register />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Profile" element={<Profile />} /> 
+            <Route path= "/About" element={<About />} />
+        </Routes>
     </>
   );
 }

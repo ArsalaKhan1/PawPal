@@ -1,6 +1,6 @@
 function FeatureCard(){
     return(
-        <section class = "featureCard">
+        <section className = "featureCard">
             <h2>What users can do on PawPal</h2>
             <ul>
                 <li>Manage multiple pet profiles</li>
