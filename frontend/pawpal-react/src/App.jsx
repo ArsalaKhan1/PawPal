@@ -1,8 +1,8 @@
 import {Route, Routes} from "react-router-dom";
 
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Footer from "./components/Footer";
+import Navbar from "./components/Navbar.jsx";
+import Hero from "./components/Hero.jsx";
+import Footer from "./components/Footer.jsx";
 import './App.css';
 
 import Home from "./pages/Home.jsx";
