@@ -1,27 +1,41 @@
 import {useState} from "react";
 import Navbar from "../components/Navbar";
-import PetCard from "../components/PetCard";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import Axios from "axios"
+
 
 function NewPet(){
-    const [pets, setPets] = useState([]); /*pets are stored here, initially empty*/
+
     const [name, setName] = useState(""); /* stores what user is typing */
     const [animal, setAnimal] = useState("");
     const [breed, setBreed] = useState("");
     const [age, setAge] = useState("");
+    const [weight, setWeight] = useState("");
+    const [owner, setOwner] = useState("");
+    const [vaccinated, setVaccinated] = useState("");
 
-    function addPet(event) {
+    async function addPet(event) {
         event.preventDefault(); /* stops refresh */
     
     const newPet = {
-        name, animal, breed, age
+        name, animal, breed, age, weight, owner, vaccinated
     };
-    setPets([...pets, newPet]); /*adds new pet */
-    setName("");
-    setAnimal("");
-    setBreed("");
-    setAge("");
+    try{
+        await Axios.post("http://localhost:5000/pets", newPet);
+        alert("Pet added successfully!");
+        setName("");
+        setAnimal("");
+        setBreed("");
+        setAge("");
+        setWeight("");
+        setOwner("");
+        setVaccinated("");
+    }
+    catch(err){
+        console.error(err);
+        alert("Failed to add pet, Please try again!");
+    }
 }
 
 return (<>
@@ -51,26 +65,38 @@ return (<>
                     required
             />
             <Input
+                label= "Vaccinated"
+                type = "boolean"
+                value = {vaccinated}
+                onChange = {(e)=> setVaccinated(e.target.value)}
+            />
+            <Input
                 label = "Age"
-                type = "text"
+                type = "number"
                 value = {age}
                 onChange = { (e) => setAge(e.target.value)}
                 required
             />
+            <Input 
+                label = "Weight"
+                type = "number"
+                value = {weight}
+                onChange = {(e) => setWeight(e.target.value)}
+                required
+            />
+            <Input
+                label = "Owner"
+                type = "string"
+                value = {owner}
+                onChange={(e) => setOwner(e.target.value)}
+                required
+            />
+
             <Button type = "submit">
                 Add Pet
             </Button>
 
         </form>
-        <hr />
-        {pets.map((pet,index) => (
-            <PetCard 
-                key ={index}
-                name = {pet.name}
-                animal = {pet.animal}
-                breed = {pet.breed}
-                age = {pet.age}/>
-        ))}
     </main>
     </>
 );
