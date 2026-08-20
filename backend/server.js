@@ -1,6 +1,9 @@
 const express = require("express"); /* imports the express module */
 const mongoose = require("mongoose"); /* imports mongoose module */
 const petRoutes = require("./routes/pets"); /* imports pet routes */
+const vaccinationRoutes = require("./routes/vaccinations");
+const medicineRoutes = require("./routes/medicines");
+const vetVisitRoutes = require("./routes/vetVisits");
 
 require("dotenv").config();
 console.log(process.env.MONGODB_URI);
@@ -20,6 +23,9 @@ app.use(cors());
 app.use(express.json()); /* allows express to parse json data */
 
 app.use("/pets", petRoutes); /* uses pet routes for /pets path */
+app.use("/pets/:petId/vaccinations", vaccinationRoutes);
+app.use("/pets/:petId/medicines", medicineRoutes);
+app.use("/pets/:petId/vetVisits", vetVisitRoutes);
 
 app.listen(PORT, () => { /* actually starts the server and listens on the port */
     console.log(`Server running on port ${PORT}`); /* logs on terminal */

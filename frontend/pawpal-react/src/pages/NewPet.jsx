@@ -42,7 +42,7 @@ return (<>
     <Navbar />
     <main>
         <form className = "petForm" onSubmit={addPet}>
-            <h2>Register a new pet!</h2>
+            <h2 className="pageHeading">Register a new pet!</h2>
             <Input
                     label="Name"
                     type="text"

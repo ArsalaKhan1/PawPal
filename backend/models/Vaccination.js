@@ -3,11 +3,11 @@ const vaccinationSchema = new mongoose.Schema({
     pet:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Pet",
-        required
+        required : true
     },
-    vaccineName: {type: String, required},
-    dateGiven: {type: Date, required},
-    nextDueDate: {type: Date, required},
+    vaccineName: {type: String, required: true},
+    dateGiven: {type: Date, required: true},
+    nextDueDate: {type: Date, required: true},
     vetName: {type: String},
     notes: {type: String}
 }, {timestamps: true});

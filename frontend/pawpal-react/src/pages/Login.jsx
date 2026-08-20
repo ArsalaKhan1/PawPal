@@ -20,7 +20,7 @@ function Login() {
         <Navbar/>
         <main>
             <form className="petForm" onSubmit={handleLogin}>
-                <h2>Welcome Back!</h2>
+                <h2 className="pageHeading">Welcome Back!</h2>
                 <p>Login to continue managing your pets' care and health.</p>
                 <Input
                     label="Email"

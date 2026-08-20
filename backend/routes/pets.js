@@ -1,6 +1,6 @@
 const express = require("express");
-const router = express.Router();
-
+const router = express.Router({mergeParams: true});
+        
 const Pet = require("../models/Pet"); /* imports Pet model */
 
 router.use(express.json()); /* allows express to parse json data */

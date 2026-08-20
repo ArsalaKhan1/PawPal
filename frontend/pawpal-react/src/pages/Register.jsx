@@ -24,7 +24,7 @@ function Register(){
         <Navbar />
         <main>
             <form className="petForm" onSubmit={handleRegister}>
-                <h2>Create Account</h2>
+                <h2 className="pageHeading">Create Account</h2>
                 <p>
                     Welcome to PawPal! Please create your account.
                 </p>

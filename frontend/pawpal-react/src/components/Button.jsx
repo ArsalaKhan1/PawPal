@@ -1,6 +1,10 @@
-function Button({children}) {
+function Button({ children, className = "", type = "button", ...props }) {
     return (
-        <button className = "simpleButton" >
+        <button
+            className={`simpleButton${className ? ` ${className}` : ""}`}
+            type={type}
+            {...props}
+        >
             {children}
         </button>
     );

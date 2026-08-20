@@ -1,5 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 
+
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
 import Footer from "./components/Footer.jsx";
@@ -20,7 +21,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/NewPet" element={<NewPet />} /> 
-            <Route path="/Health" element={<Health />} />
+            <Route path="/pets/:petId/Health" element={<Health />} />
             <Route path="/Register" element={<Register />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/Profile" element={<Profile />} /> 

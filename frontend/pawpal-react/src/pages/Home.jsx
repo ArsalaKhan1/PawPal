@@ -22,7 +22,7 @@ function Home() {
             }
         }
     fetchPets();
-    }, []);
+    }, []); /* [] indicates run this when array empty */
 
     return (
     <>
@@ -31,16 +31,6 @@ function Home() {
         <FeatureCard />
         <br></br>
         <Onboarding />
-        <h2>Meet some of our featured pets!</h2>
-        {pets.map((pet)=> (
-            <PetCard
-                key = {pet._id}
-                name = {pet.name}
-                animal = {pet.animal}
-                breed = {pet.breed}
-                age = {pet.age}
-            />
-        ))}
         <Footer />
     </>
     );
