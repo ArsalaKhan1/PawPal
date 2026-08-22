@@ -4,6 +4,7 @@ const petRoutes = require("./routes/pets"); /* imports pet routes */
 const vaccinationRoutes = require("./routes/vaccinations");
 const medicineRoutes = require("./routes/medicines");
 const vetVisitRoutes = require("./routes/vetVisits");
+const authRoutes = require("./routes/auth");
 
 require("dotenv").config();
 console.log(process.env.MONGODB_URI);
@@ -26,7 +27,7 @@ app.use("/pets", petRoutes); /* uses pet routes for /pets path */
 app.use("/pets/:petId/vaccinations", vaccinationRoutes);
 app.use("/pets/:petId/medicines", medicineRoutes);
 app.use("/pets/:petId/vetVisits", vetVisitRoutes);
-
+app.use("/auth", authRoutes);
 app.listen(PORT, () => { /* actually starts the server and listens on the port */
     console.log(`Server running on port ${PORT}`); /* logs on terminal */
 });
