@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import Navbar from "../components/Navbar";
 import PetCard from "../components/PetCard";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Dashboard() {
     const [pets, setPets] = useState([]);
+    const location = useLocation();
+    const flashMessage = location.state?.message || "";
 
     useEffect(() => {
         async function fetchPets() {
@@ -13,7 +15,11 @@ function Dashboard() {
                 // TODO: once auth exists, filter by the logged-in user's
                 // owner id instead of fetching everything — e.g.
                 // Axios.get(`http://localhost:5000/pets?owner=${userId}`)
-                const response = await Axios.get("http://localhost:5000/pets");
+                const response = await Axios.get("http://localhost:5000/pets", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    }
+                });
                 setPets(response.data);
             } catch (err) {
                 console.error(err);
@@ -28,10 +34,13 @@ function Dashboard() {
             <main>
                 <div className="dashboardHeader">
                 <h2 className = "pageHeading">Your Pets</h2>
-                <Link to="/NewPet" className="simpleButton">
+                <Link to="/new-pet" className="simpleButton">
                         + Add New Pet
                 </Link>
                 </div>
+                {flashMessage && (
+                    <p className="successMessage">{flashMessage}</p>
+                )}
                 {pets.length === 0 ? (
                     <p className = "emptyMessage">No pets registered yet.</p>
                 ) : (

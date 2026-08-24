@@ -1,31 +1,32 @@
 const express = require("express");
 const router = express.Router({mergeParams: true});
-        
+
 const Pet = require("../models/Pet"); /* imports Pet model */
+const protect = require("../middleware/protect");
 
 router.use(express.json()); /* allows express to parse json data */
 
 
 /*create*/
-router.post("/", async (req, res) => {
+router.post("/", protect, async (req, res) => {
     try{
-    const newPet = await Pet.create(req.body);
+    const newPet = await Pet.create({
+        ...req.body,
+        owner: req.user.id});
     res.status(201).json({
         message: "Pet added successfully",
         newPet
     }); 
     }
     catch(err){
-        res.status(400).json({
-            message: err.message
-        });
+        res.status(400).json({message: err.message});
     }
 });
 
 /*read*/
-router.get("/", async (req, res) => {
+router.get("/", protect, async (req, res) => {
     try{
-        const pets = await Pet.find();
+        const pets = await Pet.find({ owner: req.user.id });
         res.json(pets);
     }
     catch(err){
@@ -36,17 +37,23 @@ router.get("/", async (req, res) => {
 });
 
 /*update*/
-router.put("/:id", async(req, res) => {
+router.put("/:id", protect, async(req, res) => {
     try{
-        const pet = await Pet.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const pet = await Pet.findById(req.params.id);
         if(!pet){
             return res.status(404).json({
             message: "Pet not found to be updated!"
             })
         }
+        if(pet.owner.toString() !== req.user.id){
+            return res.status(403).json({
+                message: "You are not authorized to update this pet"
+            });
+        }
+        const updatedPet = await Pet.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.json({
             message: "Pet updated successfully",
-            pet
+            pet: updatedPet
         });
     }
     catch(err){
@@ -57,14 +64,20 @@ router.put("/:id", async(req, res) => {
 });
 
 /*delete*/
-router.delete("/:id", async(req, res) => {
+router.delete("/:id", protect, async(req, res) => {
     try{
-        const pet = await Pet.findByIdAndDelete(req.params.id)
+        const pet = await Pet.findById(req.params.id);
         if(!pet){
-            res.status(404).json({
+            return res.status(404).json({
                 message: "Pet not found"
             });
         }
+        if(pet.owner.toString() !== req.user.id){
+            return res.status(403).json({
+                message: "You are not authorized to delete this pet"
+            });
+        }
+        await Pet.findByIdAndDelete(req.params.id);
         res.json({
             message: "Pet deleted successfully"
         });
@@ -76,4 +89,4 @@ router.delete("/:id", async(req, res) => {
     }
 });
 
-module.exports = router; /* exports router to be used in server.js */
+module.exports = router; 

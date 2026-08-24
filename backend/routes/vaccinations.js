@@ -1,6 +1,9 @@
 const express = require ("express");
 const router = express.Router({mergeParams: true});
 const Vaccination = require("../models/Vaccination"); /*imports the Vaccination model*/
+const protect = require("../middleware/protect");
+
+router.use(protect);
 
 /*routes for Vaccination records of a pet */
 

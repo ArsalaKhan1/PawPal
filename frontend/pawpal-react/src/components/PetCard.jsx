@@ -6,7 +6,7 @@ function PetCard({_id, name, animal, breed, age}){
             <p>Animal: {animal}</p>
             <p>Breed: {breed}</p>
             <p>Age: {age}</p>
-            <Link to = {`/pets/${_id}/Health`}>View Health records</Link>
+            <Link to = {`/pets/${_id}/health`}>View Health records</Link>
         </div>
     );
 }

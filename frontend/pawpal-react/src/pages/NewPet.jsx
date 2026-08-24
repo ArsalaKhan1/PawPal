@@ -1,4 +1,5 @@
-import {useState} from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -6,35 +7,51 @@ import Axios from "axios"
 
 
 function NewPet(){
+    const navigate = useNavigate();
 
     const [name, setName] = useState(""); /* stores what user is typing */
     const [animal, setAnimal] = useState("");
     const [breed, setBreed] = useState("");
     const [age, setAge] = useState("");
     const [weight, setWeight] = useState("");
-    const [owner, setOwner] = useState("");
-    const [vaccinated, setVaccinated] = useState("");
+    const [vaccinated, setVaccinated] = useState("true");
+    const [statusMessage, setStatusMessage] = useState("");
+    const [statusType, setStatusType] = useState("");
 
     async function addPet(event) {
         event.preventDefault(); /* stops refresh */
     
     const newPet = {
-        name, animal, breed, age, weight, owner, vaccinated
+        name,
+        animal,
+        breed,
+        age: Number(age),
+        weight: Number(weight),
+        vaccinated: vaccinated === "true"
     };
     try{
-        await Axios.post("http://localhost:5000/pets", newPet);
-        alert("Pet added successfully!");
+        await Axios.post("http://localhost:5000/pets", newPet,
+            {headers: {Authorization: `Bearer ${localStorage.getItem("token")}` }
+        });
+        setStatusType("success");
+        setStatusMessage("Pet added successfully. Returning to your dashboard...");
         setName("");
         setAnimal("");
         setBreed("");
         setAge("");
         setWeight("");
-        setOwner("");
-        setVaccinated("");
+        setVaccinated("true");
+
+        window.setTimeout(() => {
+            navigate("/dashboard", {
+                state: { message: "Pet added successfully." }
+            });
+        }, 1200);
     }
     catch(err){
         console.error(err);
-        alert("Failed to add pet, Please try again!");
+        setStatusType("error");
+        setStatusMessage(err.response?.data?.message || "Failed to add pet. Please try again.");
     }
 }
 
@@ -43,7 +60,12 @@ return (<>
     <main>
         <form className = "petForm" onSubmit={addPet}>
             <h2 className="pageHeading">Register a new pet!</h2>
-            <Input
+            {statusMessage && (
+                <p className={statusType === "success" ? "successMessage" : "errorMessage"}>
+                    {statusMessage}
+                </p>
+            )}
+             <Input
                     label="Name"
                     type="text"
                     value = {name}
@@ -65,12 +87,6 @@ return (<>
                     required
             />
             <Input
-                label= "Vaccinated"
-                type = "boolean"
-                value = {vaccinated}
-                onChange = {(e)=> setVaccinated(e.target.value)}
-            />
-            <Input
                 label = "Age"
                 type = "number"
                 value = {age}
@@ -84,13 +100,13 @@ return (<>
                 onChange = {(e) => setWeight(e.target.value)}
                 required
             />
-            <Input
-                label = "Owner"
-                type = "string"
-                value = {owner}
-                onChange={(e) => setOwner(e.target.value)}
-                required
-            />
+            <div className="inputField">
+                <label>Vaccinated</label>
+                <select value={vaccinated} onChange={(e) => setVaccinated(e.target.value)}>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
 
             <Button type = "submit">
                 Add Pet

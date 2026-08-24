@@ -1,6 +1,9 @@
 const express = require ("express");
 const router = express.Router({mergeParams: true});
 const vetVisit = require("../models/vetVisit"); /*imports the vetVisits model*/
+const protect = require("../middleware/protect");
+
+router.use(protect);
 
 /*routes for vetVisits records of a pet */
 

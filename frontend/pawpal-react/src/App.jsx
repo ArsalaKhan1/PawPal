@@ -1,9 +1,5 @@
-import {Route, Routes} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-
-import Navbar from "./components/Navbar.jsx";
-import Hero from "./components/Hero.jsx";
-import Footer from "./components/Footer.jsx";
 import './App.css';
 
 import Home from "./pages/Home.jsx";
@@ -14,20 +10,33 @@ import Register from "./pages/Register.jsx";
 import Login from "./pages/Login.jsx";
 import Profile from "./pages/Profile.jsx";
 import About from "./pages/About.jsx";
+
+function RequireAuth({ children }) {
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+
+  return children;
+}
+
 function App() {
-  return(
+  return (
     <>
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/NewPet" element={<NewPet />} /> 
-            <Route path="/pets/:petId/Health" element={<Health />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Profile" element={<Profile />} /> 
-            <Route path= "/About" element={<About />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+        <Route path="/new-pet" element={<RequireAuth><NewPet /></RequireAuth>} />
+        <Route path="/pets/:petId/health" element={<RequireAuth><Health /></RequireAuth>} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </>
   );
 }
+
 export default App;

@@ -1,6 +1,9 @@
 const express = require ("express");
 const router = express.Router({mergeParams: true});
 const Medicine = require("../models/Medicine"); /*imports the Medicine model*/
+const protect = require("../middleware/protect");
+
+router.use(protect);
 
 /*routes for Medicine records of a pet */
 

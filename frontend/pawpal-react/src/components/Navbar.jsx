@@ -4,9 +4,9 @@ function Navbar(){
     return (
         <nav>
             <Link to = "/">Home</Link>
-            <Link to = "/Dashboard">Dashboard</Link>
-            <Link to = "/Profile">Profile</Link>
-            <Link to = "/About">About</Link> 
+            <Link to = "/dashboard">Dashboard</Link>
+            <Link to = "/profile">Profile</Link>
+            <Link to = "/about">About</Link> 
         </nav>
     );
 }
