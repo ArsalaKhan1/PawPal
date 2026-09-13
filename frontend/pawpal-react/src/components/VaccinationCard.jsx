@@ -1,4 +1,4 @@
-import { getVaccinationStatus } from "../utils/vaccinationStatus";
+import { getVaccinationStatus } from "../utils/VaccinationStatus";
 
 function VaccinationCard({ record, onDelete }) {
     const status = getVaccinationStatus(record.nextDueDate);
