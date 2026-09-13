@@ -23,6 +23,15 @@ function MedicineCard({ record, onDelete }) {
                         <dd>{record.reason}</dd>
                     </>
                 )}
+
+                {record.photoUrl && (
+                    <>
+                        <dt>Attachment</dt>
+                        <dd>
+                            <img src={record.photoUrl} alt="Medicine attachment" style={{ maxWidth: "100%", borderRadius: "8px" }} />
+                        </dd>
+                    </>
+                )}
             </dl>
 
             <button className = "deleteButton"type="button" onClick={() => onDelete(record._id)}>

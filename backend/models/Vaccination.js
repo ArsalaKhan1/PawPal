@@ -9,7 +9,8 @@ const vaccinationSchema = new mongoose.Schema({
     dateGiven: {type: Date, required: true},
     nextDueDate: {type: Date, required: true},
     vetName: {type: String},
-    notes: {type: String}
+    notes: {type: String},
+    photoUrl: { type: String }
 }, {timestamps: true});
 
 module.exports = mongoose.model("Vaccination", vaccinationSchema);

@@ -1,4 +1,4 @@
-function Input({label,type,placeholder,value,onChange,name}) 
+function Input({label,type,placeholder,value,onChange,name, ...props}) 
 {
     return (
         <div className="inputField">
@@ -9,6 +9,7 @@ function Input({label,type,placeholder,value,onChange,name})
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
+                {...props}
             />
         </div>
     );

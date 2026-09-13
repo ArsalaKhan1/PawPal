@@ -1,6 +1,7 @@
 const express = require ("express");
 const router = express.Router({mergeParams: true});
-const vetVisit = require("../models/vetVisit"); /*imports the vetVisits model*/
+const upload = require("../middleware/upload");
+const vetVisit = require("../models/VetVisit"); /*imports the vetVisits model*/
 const protect = require("../middleware/protect");
 
 router.use(protect);
@@ -21,10 +22,11 @@ router.get("/", async(req,res)=>{
 });
 
 /* POST NEW */
-router.post("/", async (req, res) => {
+router.post("/", upload.single("photo"), async (req, res) => {
     try{
         const newRecord = await vetVisit.create({
-            ...req.body, 
+            ...req.body,
+            photoUrl: req.file ? req.file.path : undefined,
             pet: req.params.petId
         });
         res.status(201).json({

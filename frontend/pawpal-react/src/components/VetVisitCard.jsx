@@ -40,6 +40,15 @@ function VetVisitCard({ record, onDelete }) {
                         <dd>{record.cost}</dd>
                     </>
                 )}
+
+                {record.photoUrl && (
+                    <>
+                        <dt>Attachment</dt>
+                        <dd>
+                            <img src={record.photoUrl} alt="Vet visit attachment" style={{ maxWidth: "100%", borderRadius: "8px" }} />
+                        </dd>
+                    </>
+                )}
             </dl>
 
             <button className = "deleteButton" type="button" onClick={() => onDelete(record._id)}>

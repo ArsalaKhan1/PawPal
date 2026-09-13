@@ -1,121 +1,74 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import Axios from "axios"
-
+import Axios from "axios";
+import api from "../utils/api";
 
 function NewPet(){
-    const navigate = useNavigate();
-
-    const [name, setName] = useState(""); /* stores what user is typing */
+    const [name, setName] = useState("");
     const [animal, setAnimal] = useState("");
     const [breed, setBreed] = useState("");
     const [age, setAge] = useState("");
     const [weight, setWeight] = useState("");
-    const [vaccinated, setVaccinated] = useState("true");
-    const [statusMessage, setStatusMessage] = useState("");
-    const [statusType, setStatusType] = useState("");
-
+    const [vaccinated, setVaccinated] = useState("");
+    const [photo, setPhoto] = useState(null);
     async function addPet(event) {
-        event.preventDefault(); /* stops refresh */
-    
-    const newPet = {
-        name,
-        animal,
-        breed,
-        age: Number(age),
-        weight: Number(weight),
-        vaccinated: vaccinated === "true"
-    };
-    try{
-        await Axios.post("http://localhost:5000/pets", newPet,
-            {headers: {Authorization: `Bearer ${localStorage.getItem("token")}` }
-        });
-        setStatusType("success");
-        setStatusMessage("Pet added successfully. Returning to your dashboard...");
-        setName("");
-        setAnimal("");
-        setBreed("");
-        setAge("");
-        setWeight("");
-        setVaccinated("true");
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("animal", animal);
+        formData.append("breed", breed);
+        formData.append("age", age);
+        formData.append("weight", weight);
+        formData.append("vaccinated", vaccinated);
+        if (photo) {
+            formData.append("photo", photo);
+        }
 
-        window.setTimeout(() => {
-            navigate("/dashboard", {
-                state: { message: "Pet added successfully." }
+        const token = localStorage.getItem("token");
+
+        try {
+            await api.post("/pets", formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             });
-        }, 1200);
+            alert("Pet added successfully!");
+            setName(""); setAnimal(""); setBreed(""); setAge("");
+            setWeight(""); setVaccinated(""); setPhoto(null);
+        } catch (err) {
+            console.error(err);
+            alert("Failed to add pet, Please try again!");
+        }
     }
-    catch(err){
-        console.error(err);
-        setStatusType("error");
-        setStatusMessage(err.response?.data?.message || "Failed to add pet. Please try again.");
-    }
-}
 
-return (<>
-    <Navbar />
-    <main>
-        <form className = "petForm" onSubmit={addPet}>
-            <h2 className="pageHeading">Register a new pet!</h2>
-            {statusMessage && (
-                <p className={statusType === "success" ? "successMessage" : "errorMessage"}>
-                    {statusMessage}
-                </p>
-            )}
-             <Input
-                    label="Name"
-                    type="text"
-                    value = {name}
-                    onChange = {(e) => setName(e.target.value)}
-                    required
-            />
-            <Input
-                    label="Animal"
-                    type="text"
-                    value = {animal}
-                    onChange = {(e) => setAnimal(e.target.value)}
-                    required
-            />
-            <Input
-                    label="Breed"
-                    type="text"
-                    value = {breed}
-                    onChange = {(e) => setBreed(e.target.value) }
-                    required
-            />
-            <Input
-                label = "Age"
-                type = "number"
-                value = {age}
-                onChange = { (e) => setAge(e.target.value)}
-                required
-            />
-            <Input 
-                label = "Weight"
-                type = "number"
-                value = {weight}
-                onChange = {(e) => setWeight(e.target.value)}
-                required
-            />
-            <div className="inputField">
-                <label>Vaccinated</label>
-                <select value={vaccinated} onChange={(e) => setVaccinated(e.target.value)}>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                </select>
-            </div>
+    return (<>
+        <Navbar />
+        <main>
+            <form className="petForm" onSubmit={addPet}>
+                <h2>Register a new pet!</h2>
+                <Input label="Name" type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+                <Input label="Animal" type="text" value={animal} onChange={(e) => setAnimal(e.target.value)} required />
+                <Input label="Breed" type="text" value={breed} onChange={(e) => setBreed(e.target.value)} required />
+                <Input label="Vaccinated" type="text" value={vaccinated} onChange={(e) => setVaccinated(e.target.value)} />
+                <Input label="Age" type="number" value={age} onChange={(e) => setAge(e.target.value)} required />
+                <Input label="Weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} required />
 
-            <Button type = "submit">
-                Add Pet
-            </Button>
+                <div className="inputField">
+                    <label htmlFor="pet-photo">Pet Photo</label>
+                    <input
+                        type="file"
+                        id="pet-photo"
+                        accept="image/*"
+                        onChange={(e) => setPhoto(e.target.files[0])}
+                    />
+                </div>
 
-        </form>
-    </main>
-    </>
-);
+                <Button type="submit">Add Pet</Button>
+            </form>
+        </main>
+    </>);
 }
 
 export default NewPet;

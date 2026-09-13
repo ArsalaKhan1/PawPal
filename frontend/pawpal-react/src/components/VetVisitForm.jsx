@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
+import api from "../utils/api";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -12,22 +13,42 @@ function VetVisitForm({ petId, onAdded }) {
     const [followUpNeeded, setFollowUpNeeded] = useState(false);
     const [followUpDate, setFollowUpDate] = useState("");
     const [cost, setCost] = useState("");
+    const [photo, setPhoto] = useState(null);
+    const [photoPreview, setPhotoPreview] = useState("");
+
+    function handlePhotoChange(event) {
+        const file = event.target.files?.[0] || null;
+        setPhoto(file);
+
+        if (!file) {
+            setPhotoPreview("");
+            return;
+        }
+
+        setPhotoPreview(URL.createObjectURL(file));
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const newRecord = {
-            visitDate,
-            reason,
-            vetName,
-            clinicName,
-            diagnosis,
-            followUpNeeded,
-            followUpDate,
-            cost: cost ? Number(cost) : undefined // convert string -> number, only if provided
-        };
+        const formData = new FormData();
+        formData.append("visitDate", visitDate);
+        formData.append("reason", reason);
+        if (vetName) formData.append("vetName", vetName);
+        if (clinicName) formData.append("clinicName", clinicName);
+        if (diagnosis) formData.append("diagnosis", diagnosis);
+        formData.append("followUpNeeded", String(followUpNeeded));
+        if (followUpNeeded && followUpDate) formData.append("followUpDate", followUpDate);
+        if (cost) formData.append("cost", String(Number(cost)));
+        if (photo) formData.append("photo", photo);
+
+        const token = localStorage.getItem("token");
 
         try {
-            await Axios.post(`http://localhost:5000/pets/${petId}/vetVisits`, newRecord);
+            await api.post(`/pets/${petId}/vetVisits`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             onAdded();
         } catch (err) {
             console.error(err);
@@ -58,6 +79,20 @@ function VetVisitForm({ petId, onAdded }) {
             )}
 
             <Input label="Cost" type="number" value={cost} onChange={(e) => setCost(e.target.value)} />
+
+            <div className="inputField">
+                <label htmlFor="vet-visit-photo">Invoice or receipt photo (optional)</label>
+                <input
+                    type="file"
+                    id="vet-visit-photo"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                />
+            </div>
+
+            {photoPreview && (
+                <img src={photoPreview} alt="Vet visit attachment preview" style={{ maxWidth: "100%", marginTop: "12px", borderRadius: "8px" }} />
+            )}
 
             <Button type="submit">Save Vet Visit</Button>
         </form>

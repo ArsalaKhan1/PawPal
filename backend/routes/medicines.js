@@ -1,5 +1,6 @@
 const express = require ("express");
 const router = express.Router({mergeParams: true});
+const upload = require("../middleware/upload");
 const Medicine = require("../models/Medicine"); /*imports the Medicine model*/
 const protect = require("../middleware/protect");
 
@@ -21,10 +22,11 @@ router.get("/", async(req,res)=>{
 });
 
 /* POST NEW */
-router.post("/", async (req, res) => {
+router.post("/", upload.single("photo"), async (req, res) => {
     try{
         const newRecord = await Medicine.create({
-            ...req.body, 
+            ...req.body,
+            photoUrl: req.file ? req.file.path : undefined,
             pet: req.params.petId
         });
         res.status(201).json({

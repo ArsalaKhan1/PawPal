@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
+import api from "../utils/api";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Navbar from "../components/Navbar";
@@ -14,7 +15,7 @@ function Login() {
         e.preventDefault();
 
         try {
-            const response = await Axios.post("http://localhost:5000/auth/login", {
+            const response = await api.post("/auth/login", {
                 email,
                 password,
             });

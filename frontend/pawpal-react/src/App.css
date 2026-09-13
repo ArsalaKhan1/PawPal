@@ -123,7 +123,7 @@ nav a:hover {
 .petCard {
   border: 2px solid #13737A;
   padding: 20px;
-  margin: 15px auto;
+  margin: 0;              /* removes the space-claiming auto margins entirely */
   width: 280px;
   border-radius: 12px;
   background-color: #FBCA89;
@@ -289,7 +289,7 @@ footer {
 
 .healthTabs button {
   background-color: transparent;
-  margin: px8;
+  margin: 0;
   color: #13737A;
   border: none;
   padding: 10px 24px;
@@ -462,10 +462,12 @@ footer {
   margin: 0;
 }
 
-.dashboardHeader .simpleButton {
+.dashboardActions {
   position: absolute;
   right: 0;
-  margin-right: 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .simpleButton {
@@ -490,7 +492,372 @@ footer {
   transform: translateY(-2px);
 }
 
+.simpleButton--secondary {
+  background-color: #FFFFFF;
+  color: #13737A;
+  border: 1.5px solid #13737A;
+  box-shadow: none;
+}
+
+.simpleButton--secondary:hover {
+  background-color: #13737A;
+  color: #FFFFFF;
+}
+
 .recordsSection .simpleButton {
   display: block;
   margin: 0 auto 24px auto;
+}
+
+.upcomingVaccinationsHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.upcomingVaccinationsHero .pageHeading {
+  margin-bottom: 0;
+}
+
+.pageDescription {
+  max-width: 760px;
+  margin: 0 auto;
+  color: #1A282D;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.pageActions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.reminderList {
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reminderCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  border: 2px solid #13737A;
+  background-color: var(--cream-surface);
+  border-radius: 16px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.reminderCardMain h3 {
+  color: #13737A;
+  margin: 0 0 8px 0;
+}
+
+.reminderCardMain p {
+  margin: 0;
+}
+
+.reminderCardMain a {
+  color: #1A282D;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reminderCardMain a:hover {
+  color: #13737A;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.statusBadge--due {
+  background-color: #fde8e8;
+  color: #c0392b;
+}
+
+.statusBadge--soon {
+  background-color: #fff4d6;
+  color: #b7791f;
+}
+
+.statusBadge--upcoming {
+  background-color: #fff4d6;
+  color: #b7791f;
+}
+
+@media (max-width: 640px) {
+  .reminderCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .statusBadge {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .dashboardHeader {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .dashboardActions {
+    position: static;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.analyticsPage {
+  max-width: 1120px;
+}
+
+.analyticsIntro {
+  max-width: 840px;
+  margin: -10px auto 28px auto;
+  text-align: center;
+  color: #1A282D;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.analyticsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.analyticsCard {
+  background-color: var(--cream-surface);
+  border: 2px solid #FBCA89;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.analyticsCard--wide {
+  grid-column: 1 / -1;
+  margin-bottom: 24px;
+}
+
+.analyticsCardHeader h3 {
+  color: #13737A;
+  margin: 0 0 8px 0;
+  font-size: 22px;
+}
+
+.analyticsCardHeader p {
+  margin: 0;
+  color: #1A282D;
+  font-size: 15px;
+}
+
+.weightLogger {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weightLoggerFields {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+}
+
+.chartWrap {
+  position: relative;
+  width: 100%;
+  min-height: 300px;
+}
+
+.chartWrap--large {
+  min-height: 360px;
+}
+
+.chartWrap--compact {
+  min-height: 280px;
+}
+
+.vetVisitGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.vetVisitCard {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(19, 115, 122, 0.16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 860px) {
+  .analyticsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .analyticsCard--wide {
+    grid-column: auto;
+  }
+
+  .weightLoggerFields {
+    grid-template-columns: 1fr;
+  }
+
+  .chartWrap,
+  .chartWrap--large {
+    min-height: 280px;
+  }
+
+.chartWrap--compact {
+  min-height: 220px;
+  }
+}
+
+.reminderList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+}
+
+.reminderCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  border: 2px solid #13737A;
+  background-color: var(--cream-surface);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.reminderCardMain h3 {
+  color: #13737A;
+  margin: 0 0 6px 0;
+  font-size: 18px;
+}
+
+.reminderCardMain p {
+  margin: 0;
+}
+
+.reminderCardMain a {
+  color: #1A282D;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.reminderCardMain a:hover {
+  color: #13737A;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.statusBadge--overdue {
+  background-color: #fbe1de;
+  color: #c0392b;
+}
+
+.statusBadge--due-soon {
+  background-color: #fdedd3;
+  color: #b3720a;
+}
+
+.statusBadge--upcoming {
+  background-color: #fff4d6;
+  color: #b7791f;
+}
+
+.statusBadge--none {
+  background-color: #e5e4e7;
+  color: #6b7280;
+}
+
+.reminderCard--overdue {
+  border-color: #c0392b;
+  background-color: #fff6f5;
+}
+
+.reminderCard--upcoming,
+.reminderCard--due-soon {
+  border-color: #fbb04e;
+  background-color: #fffaf0;
+}
+
+.reminderCard--none {
+  border-color: #2e7d32;
+  background-color: #f1fbf1;
+}
+
+.petFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.petSearchInput {
+  flex: 1 1 260px;
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  background-color: #FAFAFA;
+  color: #1A282D;
+}
+
+.petFilters select {
+  padding: 10px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  background-color: #FAFAFA;
+  color: #1A282D;
+}
+
+.petSearchInput:focus,
+.petFilters select:focus {
+  outline: none;
+  border-color: #13737A;
+  box-shadow: 0 0 0 3px rgba(19, 115, 122, 0.15);
 }

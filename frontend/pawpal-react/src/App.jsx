@@ -34,6 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<RequireAuth><Profile /></RequireAuth>} />
         <Route path="/about" element={<About />} />
+        <Route path="/upcoming-vaccinations" element={<RequireAuth><Navigate to="/profile" replace /></RequireAuth>} />
       </Routes>
     </>
   );

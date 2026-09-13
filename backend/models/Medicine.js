@@ -5,8 +5,9 @@ const medicineSchema = new mongoose.Schema({
     dosage: {type: String, required: true},
     frequency: { type: String, required: true },     
     startDate: { type: Date, required: true },
-    endDate: { type: Date },                      
-    reason: { type: String }  
+    endDate: { type: Date },
+    reason: { type: String },
+    photoUrl: { type: String }
 },{timestamps: true});
 
 module.exports = mongoose.model("Medicine", medicineSchema);

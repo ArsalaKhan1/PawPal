@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Axios from "axios";
+import api from "../utils/api";
 import Button from "../components/Button";
 import Navbar from "../components/Navbar";
 import Tabs from "../components/Tabs";
@@ -13,9 +14,6 @@ import VaccinationForm from "../components/VaccinationForm";
 import MedicineForm from "../components/MedicineForm";
 import VetVisitForm from "../components/VetVisitForm";
 
-// Maps a tab key to everything that differs between record types.
-// This is what lets the render logic below stay generic instead of
-// writing three near-identical blocks of JSX.
 const TAB_CONFIG = {
     vaccinations: {
         label: "Vaccinations",
@@ -76,8 +74,14 @@ function PetHealth() {
     // Fetches ONE record type and stores it via the matching setter.
     async function fetchRecords(tabKey) {
         const { endpoint } = TAB_CONFIG[tabKey];
+        const token = localStorage.getItem("token");
+
         try {
-            const response = await Axios.get(`http://localhost:5000/pets/${petId}/${endpoint}`);
+            const response = await api.get(`/pets/${petId}/${endpoint}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             setterByTab[tabKey](response.data);
         } catch (err) {
             console.error(err);
@@ -95,8 +99,14 @@ function PetHealth() {
 
     async function handleDelete(tabKey, recordId) {
         const { endpoint } = TAB_CONFIG[tabKey];
+        const token = localStorage.getItem("token");
+
         try {
-            await Axios.delete(`http://localhost:5000/pets/${petId}/${endpoint}/${recordId}`);
+            await api.delete(`/pets/${petId}/${endpoint}/${recordId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             fetchRecords(tabKey); // refresh just this tab's list
         } catch (err) {
             console.error(err);

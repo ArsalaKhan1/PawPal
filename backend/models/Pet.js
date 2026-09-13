@@ -24,6 +24,9 @@ const petSchema = new mongoose.Schema({
             type: Boolean,
             required: true
         },
+        photoUrl:{
+            type: String
+        },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",

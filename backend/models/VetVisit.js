@@ -9,7 +9,8 @@ const vetVisitSchema = new mongoose.Schema({
         diagnosis: {type: String},
         followupNeeded: {type: Boolean, default: false},
         followupDate: {type: Date},
-        cost: {type: Number}
+        cost: {type: Number},
+        photoUrl: { type: String }
 }, {timestamps: true});
 
 module.exports = mongoose.model("VetVisit", vetVisitSchema);

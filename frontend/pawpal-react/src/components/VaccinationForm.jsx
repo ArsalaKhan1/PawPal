@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
+import api from "../utils/api";
 import Input from "./Input";
 import Button from "./Button";
 
@@ -15,14 +16,40 @@ function VaccinationForm({ petId, onAdded }) {
     const [nextDueDate, setNextDueDate] = useState("");
     const [vetName, setVetName] = useState("");
     const [notes, setNotes] = useState("");
+    const [photo, setPhoto] = useState(null);
+    const [photoPreview, setPhotoPreview] = useState("");
+
+    function handlePhotoChange(event) {
+        const file = event.target.files?.[0] || null;
+        setPhoto(file);
+
+        if (!file) {
+            setPhotoPreview("");
+            return;
+        }
+
+        setPhotoPreview(URL.createObjectURL(file));
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        const newRecord = { vaccineName, dateGiven, nextDueDate, vetName, notes };
+        const formData = new FormData();
+        formData.append("vaccineName", vaccineName);
+        formData.append("dateGiven", dateGiven);
+        if (nextDueDate) formData.append("nextDueDate", nextDueDate);
+        if (vetName) formData.append("vetName", vetName);
+        if (notes) formData.append("notes", notes);
+        if (photo) formData.append("photo", photo);
+
+        const token = localStorage.getItem("token");
 
         try {
-            await Axios.post(`http://localhost:5000/pets/${petId}/vaccinations`, newRecord);
-            onAdded(); // tell the parent: "done, go refresh and close me"
+            await api.post(`/pets/${petId}/vaccinations`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            onAdded(); 
         } catch (err) {
             console.error(err);
             alert("Failed to add vaccination record.");
@@ -36,6 +63,21 @@ function VaccinationForm({ petId, onAdded }) {
             <Input label="Next Due Date" type="date" value={nextDueDate} onChange={(e) => setNextDueDate(e.target.value)} />
             <Input label="Vet Name" value={vetName} onChange={(e) => setVetName(e.target.value)} />
             <Input label="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+
+            <div className="inputField">
+                <label htmlFor="vaccination-photo">Vaccination receipt or proof (optional)</label>
+                <input
+                    type="file"
+                    id="vaccination-photo"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                />
+            </div>
+
+            {photoPreview && (
+                <img src={photoPreview} alt="Vaccination attachment preview" style={{ maxWidth: "100%", marginTop: "12px", borderRadius: "8px" }} />
+            )}
+
             <Button type="submit">Save Vaccination</Button>
         </form>
     );
