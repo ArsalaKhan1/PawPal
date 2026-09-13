@@ -17,7 +17,7 @@ import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import { Link } from "react-router-dom";
-import { getVaccinationStatus } from "../utils/vaccinationStatus";
+import { getVaccinationStatus } from "../utils/VaccinationStatus";
 
 ChartJS.register(
     CategoryScale,
