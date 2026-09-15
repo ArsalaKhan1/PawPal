@@ -29,7 +29,7 @@ function NewPet(){
         const token = localStorage.getItem("token");
 
         try {
-            await api.post("/pets", formData, {
+            await api.post("/NewPet", formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
