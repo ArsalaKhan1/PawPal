@@ -60,7 +60,7 @@ function Dashboard() {
                 <div className="dashboardHeader">
                     <h2 className="pageHeading">Your Pets</h2>
                     <div className="dashboardActions">
-                        <Link to="/NewPet" className="simpleButton">+ Add New Pet</Link>
+                        <Link to="/pets" className="simpleButton">+ Add New Pet</Link>
                     </div>
                 </div>
 
