@@ -28,7 +28,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
-        <Route path="/new-pet" element={<RequireAuth><NewPet /></RequireAuth>} />
+        <Route path="/pets" element={<RequireAuth><NewPet /></RequireAuth>} />
         <Route path="/pets/:petId/health" element={<RequireAuth><Health /></RequireAuth>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
